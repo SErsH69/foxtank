@@ -288,9 +288,7 @@ section.block{padding:110px 0;position:relative}
 <!-- ============ ADVANTAGES ============ -->
 <section class="block" id="advantages" style="padding-top:0">
   <div class="container">
-    <div class="section-head reveal"><span class="pill">Преимущества</span><h2>Почему выбирают ФоксТанк</h2>
-      <div class="slider-nav"><button class="snav" id="advPrev" aria-label="Назад">‹</button><button class="snav" id="advNext" aria-label="Вперёд">›</button></div>
-    </div>
+    <div class="section-head reveal"><span class="pill">Преимущества</span><h2>Почему выбирают ФоксТанк</h2><span class="spacer"></span></div>
     <div class="adv-slider" id="advGrid"></div>
   </div>
 </section>
@@ -336,18 +334,20 @@ document.getElementById('advGrid').innerHTML=advantages.map((a,i)=>`
 (function(){
   const sl=document.getElementById('advGrid'),prev=document.getElementById('advPrev'),next=document.getElementById('advNext');
   if(!sl)return;
-  const step=()=>Math.max(260,sl.clientWidth*0.6);
-  const upd=()=>{prev.disabled=sl.scrollLeft<8;next.disabled=sl.scrollLeft>=sl.scrollWidth-sl.clientWidth-8};
-  prev.onclick=()=>sl.scrollBy({left:-step(),behavior:'smooth'});
-  next.onclick=()=>sl.scrollBy({left:step(),behavior:'smooth'});
-  sl.addEventListener('scroll',upd,{passive:true});
+  if(prev&&next){
+    const step=()=>Math.max(260,sl.clientWidth*0.6);
+    const upd=()=>{prev.disabled=sl.scrollLeft<8;next.disabled=sl.scrollLeft>=sl.scrollWidth-sl.clientWidth-8};
+    prev.onclick=()=>sl.scrollBy({left:-step(),behavior:'smooth'});
+    next.onclick=()=>sl.scrollBy({left:step(),behavior:'smooth'});
+    sl.addEventListener('scroll',upd,{passive:true});
+    addEventListener('resize',upd);setTimeout(upd,100);
+  }
   let down=false,moved=false,sx=0,sc=0;
   sl.addEventListener('pointerdown',e=>{down=true;moved=false;sx=e.clientX;sc=sl.scrollLeft});
   sl.addEventListener('pointermove',e=>{if(!down)return;const d=e.clientX-sx;if(Math.abs(d)>4){moved=true;sl.classList.add('drag');sl.scrollLeft=sc-d}});
   const end=()=>{down=false;sl.classList.remove('drag')};
   sl.addEventListener('pointerup',end);sl.addEventListener('pointerleave',end);sl.addEventListener('pointercancel',end);
   sl.addEventListener('click',e=>{if(moved){e.preventDefault();e.stopPropagation()}},true);
-  addEventListener('resize',upd);setTimeout(upd,100);
 })();
 
 const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.14,rootMargin:'0px 0px -8% 0px'});
