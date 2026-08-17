@@ -140,10 +140,17 @@ section.block{padding:110px 0;position:relative}
 .pcard h3{font-size:21px;font-weight:600;padding:0 6px;margin-bottom:8px;letter-spacing:-.01em}
 .pcard p{font-size:14px;color:var(--muted);padding:0 6px 8px}
 
-.adv-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
-@media(max-width:900px){.adv-grid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:520px){.adv-grid{grid-template-columns:1fr}}
-.acard{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:26px 24px;min-height:322px;
+.slider-nav{display:flex;gap:10px}
+.snav{width:46px;height:46px;border-radius:50%;border:1px solid var(--line-2);background:rgba(255,255,255,.04);color:var(--txt);font-size:20px;line-height:1;cursor:pointer;display:grid;place-items:center;transition:border-color .2s,background .2s,opacity .2s}
+.snav:hover{border-color:var(--accent);background:rgba(240,83,30,.12)}
+.snav:disabled{opacity:.35;cursor:default;border-color:var(--line)}
+.adv-slider{display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;
+  padding:4px 4px 12px;margin:0 -4px;cursor:grab;scrollbar-width:none;-ms-overflow-style:none}
+.adv-slider::-webkit-scrollbar{display:none}
+.adv-slider.drag{cursor:grabbing;scroll-behavior:auto;scroll-snap-type:none}
+.adv-slider.drag *{pointer-events:none}
+.acard{flex:0 0 auto;width:clamp(270px,30%,332px);scroll-snap-align:start;
+  background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:26px 24px;min-height:322px;
   display:flex;flex-direction:column;transition:transform .35s var(--ease),border-color .35s,background .35s;position:relative;overflow:hidden}
 .acard::after{content:"";position:absolute;inset:0;opacity:0;transition:opacity .4s;pointer-events:none;
   background:radial-gradient(90% 60% at 50% 0%,rgba(240,83,30,.16),transparent 70%)}
@@ -242,8 +249,10 @@ section.block{padding:110px 0;position:relative}
 <!-- ============ ADVANTAGES ============ -->
 <section class="block" id="advantages" style="padding-top:0">
   <div class="container">
-    <div class="section-head reveal"><span class="pill">Преимущества</span><h2>Почему выбирают ФоксТанк</h2><span class="spacer"></span></div>
-    <div class="adv-grid" id="advGrid"></div>
+    <div class="section-head reveal"><span class="pill">Преимущества</span><h2>Почему выбирают ФоксТанк</h2>
+      <div class="slider-nav"><button class="snav" id="advPrev" aria-label="Назад">‹</button><button class="snav" id="advNext" aria-label="Вперёд">›</button></div>
+    </div>
+    <div class="adv-slider" id="advGrid"></div>
   </div>
 </section>
 
@@ -283,6 +292,24 @@ document.getElementById('advGrid').innerHTML=advantages.map((a,i)=>`
   <article class="acard reveal" style="transition-delay:${i*90}ms">
     <span class="num">0${i+1}</span><div class="body"><h3>${a.t}</h3><p>${a.d}</p></div>
   </article>`).join('');
+
+/* ---- advantages slider: arrows + drag-to-scroll ---- */
+(function(){
+  const sl=document.getElementById('advGrid'),prev=document.getElementById('advPrev'),next=document.getElementById('advNext');
+  if(!sl)return;
+  const step=()=>Math.max(260,sl.clientWidth*0.6);
+  const upd=()=>{prev.disabled=sl.scrollLeft<8;next.disabled=sl.scrollLeft>=sl.scrollWidth-sl.clientWidth-8};
+  prev.onclick=()=>sl.scrollBy({left:-step(),behavior:'smooth'});
+  next.onclick=()=>sl.scrollBy({left:step(),behavior:'smooth'});
+  sl.addEventListener('scroll',upd,{passive:true});
+  let down=false,moved=false,sx=0,sc=0;
+  sl.addEventListener('pointerdown',e=>{down=true;moved=false;sx=e.clientX;sc=sl.scrollLeft});
+  sl.addEventListener('pointermove',e=>{if(!down)return;const d=e.clientX-sx;if(Math.abs(d)>4){moved=true;sl.classList.add('drag');sl.scrollLeft=sc-d}});
+  const end=()=>{down=false;sl.classList.remove('drag')};
+  sl.addEventListener('pointerup',end);sl.addEventListener('pointerleave',end);sl.addEventListener('pointercancel',end);
+  sl.addEventListener('click',e=>{if(moved){e.preventDefault();e.stopPropagation()}},true);
+  addEventListener('resize',upd);setTimeout(upd,100);
+})();
 
 const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.14,rootMargin:'0px 0px -8% 0px'});
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
