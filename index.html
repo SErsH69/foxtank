@@ -44,7 +44,7 @@ img,svg{display:block;max-width:100%}
   background:rgba(255,255,255,.05);
   border:1px solid var(--line);
   color:#c1c1c8;
-  font-size:13px;font-weight:500;
+  font-size:14px;font-weight:500;
   padding:8px 16px;border-radius:999px;white-space:nowrap;
 }
 .pill .dot{width:6px;height:6px;border-radius:50%;background:var(--accent)}
@@ -78,19 +78,18 @@ body.has-hero .hero-photo img,body.has-hero .hero-photo video{opacity:1}
 
 /* header */
 .hdr{position:absolute;top:0;left:0;right:0;z-index:10;max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:22px 40px}
-.logo{display:flex;align-items:center;gap:10px}
-.logo svg{width:40px;height:30px;flex:none}
-.logo b{font-weight:800;font-size:21px;letter-spacing:.4px;color:#fff;line-height:1}
-.logo b i{color:var(--accent);font-style:normal}
+.logo{display:flex;align-items:center}
+.logo img{height:36px;width:auto;display:block}
 .nav-pill{display:flex;align-items:center;gap:2px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);
   border-radius:999px;padding:6px;backdrop-filter:blur(10px)}
-.nav-pill a{font-size:14px;color:#d7d7dd;padding:8px 13px;border-radius:999px;transition:background .2s,color .2s;white-space:nowrap}
+.nav-pill a{font-size:15px;color:#d7d7dd;padding:8px 13px;border-radius:999px;transition:background .2s,color .2s;white-space:nowrap}
 .nav-pill a:hover{background:rgba(255,255,255,.12);color:#fff}
 .nav-ic{display:flex;gap:2px;margin-left:4px;padding-left:6px;border-left:1px solid rgba(255,255,255,.14)}
 .nav-ic button{width:36px;height:36px;border-radius:50%;border:none;background:transparent;color:#d7d7dd;display:grid;place-items:center;cursor:pointer;transition:background .2s}
 .nav-ic button:hover{background:rgba(255,255,255,.12);color:#fff}
 .btn-contact{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#fff;font-weight:600;font-size:14px;
-  border:none;border-radius:999px;padding:13px 26px;cursor:pointer;transition:transform .2s,box-shadow .2s;box-shadow:0 8px 22px rgba(240,83,30,.32)}
+  border:none;border-radius:999px;width:145px;height:46px;padding:0;display:inline-flex;align-items:center;justify-content:center;flex:none;
+  cursor:pointer;transition:transform .2s,box-shadow .2s;box-shadow:0 8px 22px rgba(240,83,30,.32)}
 .btn-contact:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(240,83,30,.44)}
 @media(max-width:1120px){.nav-pill{display:none}}
 
@@ -122,16 +121,17 @@ body.has-hero .truck{display:none}
 .hero-sub{font-size:clamp(14px,1.35vw,17px);color:#c3c3ca;max-width:540px;transition:opacity .5s}
 
 .hero-right{position:absolute;right:40px;bottom:52px;z-index:6;width:366px;display:flex;flex-direction:column;gap:18px;pointer-events:auto}
-.slide-line{display:flex;align-items:center;gap:14px;color:#e9e9ee;font-size:15px;font-variant-numeric:tabular-nums}
+.slide-line{display:flex;align-items:center;gap:14px;color:#e9e9ee;font-size:18px;font-weight:500;font-variant-numeric:tabular-nums}
 .slide-line .sl-track{flex:1;height:2px;background:rgba(255,255,255,.28);border-radius:2px;position:relative}
 .slide-line .sl-track i{position:absolute;left:0;top:0;height:100%;width:25%;background:var(--accent);border-radius:2px;transition:width .5s var(--ease)}
 .slide-line .sl-end{color:var(--muted)}
-.mini-card{display:flex;gap:14px;background:rgba(16,16,19,.6);border:1px solid rgba(255,255,255,.1);border-radius:18px;padding:12px;backdrop-filter:blur(12px)}
-.mini-card .mc-thumb{width:120px;height:94px;flex:none;border-radius:12px;overflow:hidden;position:relative;background:linear-gradient(135deg,#f2f3f5,#d3d6db)}
-.mini-card .mc-thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;padding:6px}
-.mini-card .mc-body{display:flex;flex-direction:column;justify-content:center;gap:9px}
-.mini-card .mc-body p{font-size:13px;color:#cbcbd1;line-height:1.4}
-.mini-card .clink{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:#fff}
+.mini-card{display:flex;gap:16px;background:rgba(16,16,19,.6);border:1px solid rgba(255,255,255,.1);border-radius:18px;padding:14px;backdrop-filter:blur(12px)}
+.mini-card .mc-thumb{width:116px;height:104px;flex:none;border-radius:12px;overflow:hidden;position:relative;background:#eef0f2}
+.mini-card .mc-thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.mini-card .mc-body{display:flex;flex-direction:column;justify-content:center;gap:10px}
+.mini-card .mc-body p{font-size:15px;color:#d3d3d9;line-height:1.4}
+.mini-card .clink{display:inline-flex;align-items:center;gap:7px;font-size:17px;font-weight:600;color:#fff}
+.mini-card .clink svg{width:15px;height:15px}
 @media(max-width:1120px){.hero-right{display:none}}
 @media(max-width:560px){.hero-body{left:24px;bottom:36px}.hero h1{font-size:clamp(30px,8vw,44px)}}
 
@@ -153,8 +153,8 @@ section.block{padding:110px 0;position:relative}
 .pcard .arrow{position:absolute;top:18px;right:20px;z-index:3;color:#d3d3d9;display:grid;place-items:center;
   transition:color .3s var(--ease),transform .3s var(--ease)}
 .pcard:hover .arrow{color:var(--accent);transform:translate(3px,-3px)}
-.pcard h3{font-size:21px;font-weight:600;padding:0 6px;margin-bottom:8px;letter-spacing:-.01em}
-.pcard p{font-size:14px;color:var(--muted);padding:0 6px 8px}
+.pcard h3{font-size:22px;font-weight:600;padding:0 6px;margin-bottom:8px;letter-spacing:-.01em}
+.pcard p{font-size:15px;color:var(--muted);padding:0 6px 8px;line-height:1.5}
 
 .slider-nav{display:flex;gap:10px}
 .snav{width:46px;height:46px;border-radius:50%;border:1px solid var(--line-2);background:rgba(255,255,255,.04);color:var(--txt);font-size:20px;line-height:1;cursor:pointer;display:grid;place-items:center;transition:border-color .2s,background .2s,opacity .2s}
@@ -173,10 +173,10 @@ section.block{padding:110px 0;position:relative}
 .acard:hover{transform:translateY(-6px);border-color:var(--line-2);background:var(--card-2)}
 .acard:hover::after{opacity:1}
 .acard .num{width:52px;height:52px;border-radius:50%;flex:none;background:linear-gradient(150deg,var(--accent-2),var(--accent));
-  display:grid;place-items:center;font-weight:700;font-size:17px;color:#fff;box-shadow:0 10px 24px rgba(240,83,30,.35)}
+  display:grid;place-items:center;font-weight:700;font-size:18px;color:#fff;box-shadow:0 10px 24px rgba(240,83,30,.35)}
 .acard .body{margin-top:auto}
 .acard h3{font-size:22px;font-weight:600;margin-bottom:12px;letter-spacing:-.01em}
-.acard p{font-size:14px;color:var(--muted);line-height:1.55}
+.acard p{font-size:15px;color:var(--muted);line-height:1.55}
 
 /* ============================== REVEAL ============================== */
 .reveal{opacity:0;transform:translateY(34px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
@@ -208,8 +208,7 @@ section.block{padding:110px 0;position:relative}
   <!-- header -->
   <header class="hdr">
     <a href="#" class="logo" aria-label="ФоксТанк">
-      <svg viewBox="0 0 44 32" fill="none" aria-hidden="true"><path d="M3 27L20 5l6 8-11 14z" fill="#f0531e"/><path d="M19 27L34 8l7 7-10 12z" fill="#f0531e"/><path d="M26 13l6 2-3 4z" fill="#ff7d3c"/></svg>
-      <b>FOX<i>TANK</i></b>
+      <img src="img/logo.svg" alt="ФоксТанк">
     </a>
     <nav class="nav-pill">
       <a href="#catalog">Продукция</a>
