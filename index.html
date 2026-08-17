@@ -57,16 +57,42 @@ img,svg{display:block;max-width:100%}
   .section-head h2{text-align:left}.section-head .spacer{display:none}
 }
 
-/* ============================== HERO ============================== */
-.hero{position:relative;min-height:100vh;display:flex;align-items:flex-end;padding:120px 0 48px;overflow:hidden}
-/* photo layer (upgrades when img/hero.jpg exists) */
-.hero-photo{position:absolute;inset:0;z-index:0;overflow:hidden;background:radial-gradient(120% 90% at 72% 0%,#1b1b22 0%,var(--bg) 58%)}
+/* ============================== TOP BAR ============================== */
+.hero-wrap{padding-top:0}
+.topbar{display:flex;align-items:center;gap:20px;height:50px;font-size:13px;color:var(--muted)}
+.topbar .tb-phone{color:#fff;font-weight:600;text-decoration:underline;text-underline-offset:3px}
+.topbar .tb-note{color:#83838b}
+@media(max-width:560px){.topbar .tb-note{display:none}}
+
+/* ============================== HERO (rounded card) ============================== */
+.hero{position:relative;border-radius:26px;overflow:hidden;display:flex;
+  min-height:clamp(600px,calc(100vh - 150px),880px);
+  background:radial-gradient(120% 90% at 72% 0%,#1b1b22 0%,var(--bg) 58%)}
+.hero-photo{position:absolute;inset:0;z-index:0;overflow:hidden}
 .hero-photo img,.hero-photo video{width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1s var(--ease)}
-body.has-hero .hero-photo img,body.has-hero .hero-photo video{opacity:.92}
+body.has-hero .hero-photo img,body.has-hero .hero-photo video{opacity:1}
 .hero-overlay{position:absolute;inset:0;z-index:1;
   background:
-    linear-gradient(90deg,rgba(11,11,13,.85) 0%,rgba(11,11,13,.5) 38%,rgba(11,11,13,.12) 68%,transparent 100%),
-    linear-gradient(180deg,rgba(11,11,13,.28) 0%,transparent 34%,rgba(11,11,13,.82) 88%,var(--bg) 100%)}
+    linear-gradient(90deg,rgba(8,8,10,.82) 0%,rgba(8,8,10,.42) 40%,rgba(8,8,10,.06) 70%,transparent 100%),
+    linear-gradient(180deg,rgba(8,8,10,.5) 0%,transparent 24%,transparent 52%,rgba(8,8,10,.78) 100%)}
+
+/* header */
+.hdr{position:absolute;top:0;left:0;right:0;z-index:10;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:20px 24px}
+.logo{display:flex;align-items:center;gap:10px}
+.logo svg{width:40px;height:30px;flex:none}
+.logo b{font-weight:800;font-size:21px;letter-spacing:.4px;color:#fff;line-height:1}
+.logo b i{color:var(--accent);font-style:normal}
+.nav-pill{display:flex;align-items:center;gap:2px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);
+  border-radius:999px;padding:6px;backdrop-filter:blur(10px)}
+.nav-pill a{font-size:14px;color:#d7d7dd;padding:8px 13px;border-radius:999px;transition:background .2s,color .2s;white-space:nowrap}
+.nav-pill a:hover{background:rgba(255,255,255,.12);color:#fff}
+.nav-ic{display:flex;gap:2px;margin-left:4px;padding-left:6px;border-left:1px solid rgba(255,255,255,.14)}
+.nav-ic button{width:36px;height:36px;border-radius:50%;border:none;background:transparent;color:#d7d7dd;display:grid;place-items:center;cursor:pointer;transition:background .2s}
+.nav-ic button:hover{background:rgba(255,255,255,.12);color:#fff}
+.btn-contact{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#fff;font-weight:600;font-size:14px;
+  border:none;border-radius:999px;padding:13px 26px;cursor:pointer;transition:transform .2s,box-shadow .2s;box-shadow:0 8px 22px rgba(240,83,30,.32)}
+.btn-contact:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(240,83,30,.44)}
+@media(max-width:1120px){.nav-pill{display:none}}
 
 /* moving speed streaks */
 .bg-streaks{position:absolute;inset:0;z-index:2;opacity:.55;pointer-events:none}
@@ -74,15 +100,14 @@ body.has-hero .hero-photo img,body.has-hero .hero-photo video{opacity:.92}
   background:linear-gradient(90deg,transparent,rgba(240,83,30,.4),transparent);animation:streak linear infinite}
 @keyframes streak{from{transform:translateX(0)}to{transform:translateX(260%)}}
 
-/* fallback animated truck (shown until a hero photo loads) */
+/* fallback animated truck (shown until the hero video loads) */
 .road{position:absolute;left:0;right:0;bottom:0;height:150px;z-index:2;pointer-events:none}
 .road .asphalt{position:absolute;inset:auto 0 0 0;height:70px;background:linear-gradient(180deg,#141417,#0c0c0e);border-top:1px solid rgba(255,255,255,.06)}
 .road .lane{position:absolute;left:0;bottom:32px;width:200%;height:4px;border-radius:2px;
   background:repeating-linear-gradient(90deg,rgba(255,255,255,.26) 0 46px,transparent 46px 92px);animation:lane 1.05s linear infinite}
 @keyframes lane{from{transform:translateX(0)}to{transform:translateX(-92px)}}
 body.has-hero .road,body.has-hero .bg-streaks{display:none}
-
-.truck{position:absolute;bottom:42px;left:50%;width:min(600px,72vw);transform:translateX(-50%);z-index:3;
+.truck{position:absolute;bottom:42px;left:50%;width:min(560px,66%);transform:translateX(-50%);z-index:3;
   animation:truckIn 1.3s var(--ease) both,bob 2.4s ease-in-out 1.3s infinite;filter:drop-shadow(0 26px 30px rgba(0,0,0,.55))}
 body.has-hero .truck{display:none}
 @keyframes truckIn{from{transform:translateX(-160%);opacity:0}to{transform:translateX(-50%);opacity:1}}
@@ -90,33 +115,24 @@ body.has-hero .truck{display:none}
 .wheel{transform-box:fill-box;transform-origin:center;animation:spin 1.05s linear infinite}
 @keyframes spin{from{transform:rotate(0)}to{transform:rotate(-360deg)}}
 
-.hero-inner{position:relative;z-index:5;width:100%}
-.hero-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:26px}
-.slide-ind{display:flex;align-items:center;gap:16px;font-variant-numeric:tabular-nums}
-.slide-ind .cur{font-size:30px;font-weight:700}
-.slide-ind .bar{width:130px;height:2px;background:var(--line-2);border-radius:2px;overflow:hidden;position:relative}
-.slide-ind .bar i{position:absolute;left:0;top:0;height:100%;background:var(--accent);width:25%;transition:width .5s var(--ease)}
-.slide-ind .total{font-size:16px;color:var(--muted)}
-.hero-content{max-width:720px}
-.hero h1{font-size:clamp(38px,6.2vw,72px);font-weight:700;letter-spacing:-.03em;line-height:1.03;margin:0 0 20px;transition:opacity .5s}
-.hero h1 .accent{color:var(--accent)}
-.hero-sub{font-size:clamp(15px,1.6vw,18px);color:#c3c3ca;max-width:520px;margin-bottom:30px;transition:opacity .5s}
-.hero-actions{display:flex;gap:14px;flex-wrap:wrap}
-.btn{display:inline-flex;align-items:center;gap:9px;background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#fff;
-  font-weight:600;font-size:15px;padding:14px 24px;border-radius:13px;border:none;cursor:pointer;
-  transition:transform .2s var(--ease),box-shadow .2s var(--ease);box-shadow:0 10px 26px rgba(240,83,30,.3)}
-.btn:hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(240,83,30,.42)}
-.btn.ghost{background:rgba(255,255,255,.04);border:1px solid var(--line-2);box-shadow:none;color:var(--txt)}
-.btn.ghost:hover{border-color:var(--accent);background:rgba(240,83,30,.1)}
+/* hero content: heading bottom-left, slider+card bottom-right */
+.hero-body{position:absolute;left:0;bottom:0;z-index:5;padding:0 46px 52px;max-width:720px}
+.hero h1{font-size:clamp(34px,5vw,60px);font-weight:700;letter-spacing:-.02em;line-height:1.06;color:#eceef2;margin:18px 0 18px;transition:opacity .5s}
+.hero-sub{font-size:clamp(14px,1.35vw,17px);color:#c3c3ca;max-width:460px;transition:opacity .5s}
 
-.hero-card{position:absolute;right:0;bottom:44px;z-index:6;width:300px;background:rgba(18,18,21,.66);
-  border:1px solid var(--line);border-radius:18px;padding:14px;backdrop-filter:blur(12px);display:flex;flex-direction:column;gap:12px}
-.hero-card .thumb{height:104px;border-radius:12px;overflow:hidden;background:linear-gradient(135deg,#202027,#141418);display:grid;place-items:center;position:relative}
-.hero-card .thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.hero-card p{font-size:13.5px;color:#c7c7cd;line-height:1.42}
-.hero-card .clink{display:inline-flex;align-items:center;gap:7px;font-size:14px;font-weight:600;color:var(--accent)}
-@media(max-width:1000px){.hero-card{display:none}}
-@media(max-width:640px){.hero{align-items:flex-end}.hero h1{font-size:clamp(34px,9vw,54px)}}
+.hero-right{position:absolute;right:46px;bottom:52px;z-index:6;width:366px;display:flex;flex-direction:column;gap:18px}
+.slide-line{display:flex;align-items:center;gap:14px;color:#e9e9ee;font-size:15px;font-variant-numeric:tabular-nums}
+.slide-line .sl-track{flex:1;height:2px;background:rgba(255,255,255,.28);border-radius:2px;position:relative}
+.slide-line .sl-track i{position:absolute;left:0;top:0;height:100%;width:25%;background:var(--accent);border-radius:2px;transition:width .5s var(--ease)}
+.slide-line .sl-end{color:var(--muted)}
+.mini-card{display:flex;gap:14px;background:rgba(16,16,19,.6);border:1px solid rgba(255,255,255,.1);border-radius:18px;padding:12px;backdrop-filter:blur(12px)}
+.mini-card .mc-thumb{width:120px;height:94px;flex:none;border-radius:12px;overflow:hidden;position:relative;background:linear-gradient(135deg,#eef0f2,#c4c8ce)}
+.mini-card .mc-thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.mini-card .mc-body{display:flex;flex-direction:column;justify-content:center;gap:9px}
+.mini-card .mc-body p{font-size:13px;color:#cbcbd1;line-height:1.4}
+.mini-card .clink{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:#fff}
+@media(max-width:1120px){.hero-right{display:none}}
+@media(max-width:560px){.hero-body{padding:0 24px 36px}.hero h1{font-size:clamp(30px,8vw,44px)}}
 
 /* ============================== BLOCKS ============================== */
 section.block{padding:110px 0;position:relative}
@@ -173,13 +189,42 @@ section.block{padding:110px 0;position:relative}
 </head>
 <body>
 
-<!-- ============ HERO ============ -->
+<!-- ============ TOP BAR + HERO ============ -->
+<div class="container hero-wrap">
+<div class="topbar">
+  <a class="tb-phone" href="tel:88003506884">8-800-350-68-84</a>
+  <span class="tb-note">Звонок по России бесплатный</span>
+</div>
+
 <section class="hero">
   <div class="hero-photo">
     <video src="media/hero.mp4" autoplay muted loop playsinline preload="auto"
            oncanplay="document.body.classList.add('has-hero')" onerror="this.remove()"></video>
   </div>
   <div class="hero-overlay"></div>
+
+  <!-- header -->
+  <header class="hdr">
+    <a href="#" class="logo" aria-label="ФоксТанк">
+      <svg viewBox="0 0 44 32" fill="none" aria-hidden="true"><path d="M3 27L20 5l6 8-11 14z" fill="#f0531e"/><path d="M19 27L34 8l7 7-10 12z" fill="#f0531e"/><path d="M26 13l6 2-3 4z" fill="#ff7d3c"/></svg>
+      <b>FOX<i>TANK</i></b>
+    </a>
+    <nav class="nav-pill">
+      <a href="#catalog">Продукция</a>
+      <a href="#advantages">О компании</a>
+      <a href="#">Акции</a>
+      <a href="#">Кузовной ремонт</a>
+      <a href="#">Сервис</a>
+      <a href="#">Лизинг</a>
+      <a href="#">Контакты</a>
+      <span class="nav-ic">
+        <button aria-label="Профиль"><svg width="19" height="19" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="3.4" stroke="currentColor" stroke-width="1.6"/><path d="M5.5 19a6.5 6.5 0 0 1 13 0" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button>
+        <button aria-label="Корзина"><svg width="19" height="19" viewBox="0 0 24 24" fill="none"><path d="M6 8h12l-1 11a2 2 0 0 1-2 1.8H9A2 2 0 0 1 7 19L6 8z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 8a3 3 0 0 1 6 0" stroke="currentColor" stroke-width="1.6"/></svg></button>
+      </span>
+    </nav>
+    <button class="btn-contact">Связаться</button>
+  </header>
+
   <div class="bg-streaks" id="streaks" aria-hidden="true"></div>
 
   <!-- fallback animated driving truck (hidden once a hero photo loads) -->
@@ -209,34 +254,25 @@ section.block{padding:110px 0;position:relative}
     </svg>
   </div>
 
-  <div class="container hero-inner">
-    <div class="hero-top">
-      <span class="pill"><span class="dot"></span> Машиностроительный завод</span>
-      <div class="slide-ind"><span class="cur" id="slideCur">01</span><span class="bar"><i id="slideBar"></i></span><span class="total">04</span></div>
-    </div>
-    <div class="hero-content">
-      <h1 id="heroTitle">Автоцистерны и полуприцепы <span class="accent">европейского класса</span></h1>
-      <p class="hero-sub" id="heroSub">Полный цикл производства. Европейские комплектующие. Индивидуальные решения под ваши задачи.</p>
-      <div class="hero-actions">
-        <a href="#catalog" class="btn">Смотреть каталог</a>
-        <a href="#catalog" class="btn ghost">Рассчитать стоимость</a>
+  <div class="hero-body">
+    <span class="pill"><span class="dot"></span> Машиностроительный завод</span>
+    <h1 id="heroTitle">Автоцистерны и полуприцепы европейского класса</h1>
+    <p class="hero-sub" id="heroSub">Полный цикл производства. Европейские комплектующие. Индивидуальные решения под ваши задачи</p>
+  </div>
+
+  <div class="hero-right">
+    <div class="slide-line"><span id="slideCur">01</span><span class="sl-track"><i id="slideBar"></i></span><span class="sl-end">→ 04</span></div>
+    <div class="mini-card">
+      <div class="mc-thumb"><img src="img/hero-card.png" alt="" onerror="this.remove()"></div>
+      <div class="mc-body">
+        <p id="heroCardText">Автоцистерны, полуприцепы и прицепы европейского класса.</p>
+        <a href="#catalog" class="clink">Каталог <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M7 17L17 7M17 7H9M17 7v8" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
       </div>
     </div>
   </div>
-
-  <div class="hero-card">
-    <div class="thumb">
-      <svg class="ill" viewBox="0 0 260 104" width="230" aria-hidden="true">
-        <rect x="18" y="44" width="150" height="8" rx="3" fill="#2a2a30"/><rect x="26" y="22" width="120" height="30" rx="15" fill="url(#tank)"/>
-        <rect x="26" y="34" width="120" height="7" fill="#f0531e"/><path d="M150 30h22c8 0 13 6 16 14v8h-38z" fill="#e7e8ea"/>
-        <circle cx="60" cy="56" r="9" fill="#111"/><circle cx="60" cy="56" r="4" fill="#888"/><circle cx="92" cy="56" r="9" fill="#111"/><circle cx="92" cy="56" r="4" fill="#888"/><circle cx="166" cy="56" r="9" fill="#111"/><circle cx="166" cy="56" r="4" fill="#888"/>
-      </svg>
-      <img class="photo" src="img/hero-card.png" alt="" onerror="this.remove()">
-    </div>
-    <p id="heroCardText">Автоцистерны, полуприцепы и прицепы европейского класса.</p>
-    <a href="#catalog" class="clink">Каталог <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M7 17L17 7M17 7H9M17 7v8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-  </div>
 </section>
+</div>
+
 
 <!-- ============ CATALOG ============ -->
 <section class="block" id="catalog">
@@ -320,10 +356,10 @@ const streaks=document.getElementById('streaks');
 for(let i=0;i<7;i++){const s=document.createElement('span');s.style.top=(8+i*13)+'%';s.style.animationDuration=(2.6+Math.random()*2.4)+'s';s.style.animationDelay=(-Math.random()*4)+'s';streaks.appendChild(s)}
 
 const slides=[
-  {t:'Автоцистерны и полуприцепы <span class="accent">европейского класса</span>',s:'Полный цикл производства. Европейские комплектующие. Индивидуальные решения под ваши задачи.',c:'Автоцистерны, полуприцепы и прицепы европейского класса.'},
-  {t:'Цементовозы для <span class="accent">сыпучих материалов</span>',s:'Алюминиевые и стальные силосы. Пневморазгрузка. Объёмы под любые задачи.',c:'Цементовозы для сыпучих строительных материалов.'},
-  {t:'Контейнеровозы <span class="accent">под морской и ж/д контейнер</span>',s:'Раздвижные рамы 20–45 футов. Усиленная конструкция для интенсивной эксплуатации.',c:'Контейнеровозы для морских и железнодорожных контейнеров.'},
-  {t:'Шторные полуприцепы для <span class="accent">генеральных грузов</span>',s:'Быстрая загрузка с трёх сторон. Сдвижная крыша и борта. Паллетные и генеральные грузы.',c:'Шторные полуприцепы для генеральных и паллетных грузов.'},
+  {t:'Автоцистерны и полуприцепы европейского класса',s:'Полный цикл производства. Европейские комплектующие. Индивидуальные решения под ваши задачи',c:'Автоцистерны, полуприцепы и прицепы европейского класса.'},
+  {t:'Цементовозы для сыпучих материалов',s:'Алюминиевые и стальные силосы. Пневморазгрузка. Объёмы под любые задачи',c:'Цементовозы для сыпучих строительных материалов.'},
+  {t:'Контейнеровозы под морской и ж/д контейнер',s:'Раздвижные рамы 20–45 футов. Усиленная конструкция для интенсивной эксплуатации',c:'Контейнеровозы для морских и железнодорожных контейнеров.'},
+  {t:'Шторные полуприцепы для генеральных грузов',s:'Быстрая загрузка с трёх сторон. Сдвижная крыша и борта. Паллетные и генеральные грузы',c:'Шторные полуприцепы для генеральных и паллетных грузов.'},
 ];
 let si=0;
 const elT=document.getElementById('heroTitle'),elS=document.getElementById('heroSub'),elC=document.getElementById('heroCardText'),elCur=document.getElementById('slideCur'),elBar=document.getElementById('slideBar');
