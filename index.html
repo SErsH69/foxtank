@@ -61,6 +61,7 @@ img,svg{display:block;max-width:100%}
 .section-head .spacer{display:none}
 /* full-width sections (catalog / advantages) */
 .block.full > .container{max-width:none;padding:0 40px}
+.container.topbar-full{max-width:none;padding:0 40px}
 @media(max-width:720px){
   .section-head{flex-direction:column;align-items:flex-start;gap:52px 0;min-height:0}
   .section-head .pill{position:static;transform:none}
@@ -87,7 +88,7 @@ body.has-hero .hero-photo img,body.has-hero .hero-photo video{opacity:1}
     linear-gradient(90deg,rgba(8,8,10,.68) 0%,rgba(8,8,10,.28) 34%,transparent 62%)}
 
 /* header */
-.hdr{position:absolute;top:0;left:0;right:0;z-index:10;max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:22px 40px}
+.hdr{position:absolute;top:0;left:0;right:0;z-index:10;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:22px 40px}
 .logo{display:flex;align-items:center}
 .logo img{height:36px;width:auto;display:block}
 .nav-pill{display:flex;align-items:center;gap:34px;background:rgba(67,67,67,.2);border:none;
@@ -125,7 +126,7 @@ body.has-hero .truck{display:none}
 @keyframes spin{from{transform:rotate(0)}to{transform:rotate(-360deg)}}
 
 /* hero content: heading bottom-left, slider+card bottom-right */
-.hero-stage{position:absolute;inset:0;z-index:5;max-width:1200px;margin:0 auto;pointer-events:none}
+.hero-stage{position:absolute;inset:0;z-index:5;pointer-events:none}
 .hero-body{position:absolute;left:40px;bottom:52px;z-index:5;max-width:734px;pointer-events:auto;display:flex;flex-direction:column;align-items:flex-start;gap:14px}
 .hero h1{font-family:var(--head);font-size:clamp(38px,5vw,60px);font-weight:400;letter-spacing:-1px;line-height:.9;color:#fff;margin:0;transition:opacity .5s}
 .hero-sub{font-size:14px;line-height:17px;color:rgba(255,255,255,.75);max-width:503px;margin:0;transition:opacity .5s}
@@ -198,7 +199,7 @@ section.block{padding:110px 0;position:relative}
 <body>
 
 <!-- ============ TOP BAR ============ -->
-<div class="container">
+<div class="container topbar-full">
   <div class="topbar">
     <a class="tb-phone" href="tel:88003506884">8-800-350-68-84</a>
     <span class="tb-note">Звонок по России бесплатный</span>
